@@ -14,7 +14,7 @@ var sampleDataSet = {
   label: "My First dataset",
   fill: false,
   lineTension: 0.1,
-  backgroundColor: "rgba(75,192,192,0.4)",
+  backgroundColor: "rgba(75,192,192,1)",
   borderColor: "rgba(75,192,192,1)",
   borderCapStyle: 'butt',
   borderDash: [],
@@ -32,35 +32,53 @@ var sampleDataSet = {
   data: [65, 59, 80, 81, 56, 55, 40],
 }
 
+var sampleDataSet2 = {
+  label: "My Second dataset",
+  fill: false,
+  lineTension: 0.1,
+  backgroundColor: "rgba(7,12,192,1)",
+  borderColor: "rgba(7,12,192,1)",
+  borderCapStyle: 'butt',
+  borderDash: [],
+  borderDashOffset: 0.0,
+  borderJoinStyle: 'miter',
+  pointBorderColor: "rgba(75,192,192,1)",
+  pointBackgroundColor: "#fff",
+  pointBorderWidth: 1,
+  pointHoverRadius: 5,
+  pointHoverBackgroundColor: "rgba(75,192,192,1)",
+  pointHoverBorderColor: "rgba(220,220,220,1)",
+  pointHoverBorderWidth: 2,
+  pointRadius: 1,
+  pointHitRadius: 10,
+  data: [5, 9, 8, 8, 5, 5, 4],
+}
+
 datasets.push(sampleDataSet);
-datasets.push(sampleDataSet);
+datasets.push(sampleDataSet2);
 
 
+
+xLabels = ['t1', 't2' , 't3' , 't4' , 't5']
   
-    var data = {
-            datasets: datasets,
-            labels: [
-                "Red",
-                "Orange",
-                "Yellow",
-                "Green",
-                "Blue"
-            ]
-        }
+var data = {
+  datasets: datasets,
+  labels: xLabels
+}
 
 
 
-  var config = {
-        type: 'line',
-        data: data,
-        options: {
-            responsive: true
-        }
-    };
-    
+var config = {
+  type: 'line',
+  data: data,
+  options: {
+      responsive: true
+  }
+};
 
-    window.onload = function() {
-        var ctx = document.getElementById("chart-area").getContext("2d");
-        window.myPie = new Chart(ctx, config);
-    };
+
+window.onload = function() {
+  var ctx = document.getElementById("chart-area").getContext("2d");
+  window.myPie = new Chart(ctx, config);
+};
 
