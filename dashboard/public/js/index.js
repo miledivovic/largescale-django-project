@@ -1,84 +1,123 @@
-window.chartColors = {
-  red: 'rgb(255, 99, 132)',
-  orange: 'rgb(255, 159, 64)',
-  yellow: 'rgb(255, 205, 86)',
-  green: 'rgb(75, 192, 192)',
-  blue: 'rgb(54, 162, 235)',
-  purple: 'rgb(153, 102, 255)',
-  grey: 'rgb(231,233,237)'
-};
 
-var datasets = [];
-
-var sampleDataSet = {
-  label: "My First dataset",
-  fill: false,
-  lineTension: 0.1,
-  backgroundColor: "rgba(75,192,192,1)",
-  borderColor: "rgba(75,192,192,1)",
-  borderCapStyle: 'butt',
-  borderDash: [],
-  borderDashOffset: 0.0,
-  borderJoinStyle: 'miter',
-  pointBorderColor: "rgba(75,192,192,1)",
-  pointBackgroundColor: "#fff",
-  pointBorderWidth: 1,
-  pointHoverRadius: 5,
-  pointHoverBackgroundColor: "rgba(75,192,192,1)",
-  pointHoverBorderColor: "rgba(220,220,220,1)",
-  pointHoverBorderWidth: 2,
-  pointRadius: 1,
-  pointHitRadius: 10,
-  data: [65, 59, 80, 81, 56, 55, 40],
-}
-
-var sampleDataSet2 = {
-  label: "My Second dataset",
-  fill: false,
-  lineTension: 0.1,
-  backgroundColor: "rgba(7,12,192,1)",
-  borderColor: "rgba(7,12,192,1)",
-  borderCapStyle: 'butt',
-  borderDash: [],
-  borderDashOffset: 0.0,
-  borderJoinStyle: 'miter',
-  pointBorderColor: "rgba(75,192,192,1)",
-  pointBackgroundColor: "#fff",
-  pointBorderWidth: 1,
-  pointHoverRadius: 5,
-  pointHoverBackgroundColor: "rgba(75,192,192,1)",
-  pointHoverBorderColor: "rgba(220,220,220,1)",
-  pointHoverBorderWidth: 2,
-  pointRadius: 1,
-  pointHitRadius: 10,
-  data: [5, 9, 8, 8, 5, 5, 4],
-}
-
-datasets.push(sampleDataSet);
-datasets.push(sampleDataSet2);
+colors = [
+  'rgb(255, 99, 132)',
+  'rgb(75, 192, 192)',
+  'rgb(54, 162, 235)',
+  'rgb(153, 102, 255)',
+  'rgb(231,233,237)',
+  'rgb(255, 159, 64)',
+  'rgb(255, 205, 86)',
+]
 
 
-
-xLabels = ['t1', 't2' , 't3' , 't4' , 't5']
-  
-var data = {
-  datasets: datasets,
-  labels: xLabels
+function filterByTag(md , t){
+  var tmp = md.filter(function (el) {
+      return el.tag === t;
+  });
+  console.log(t)
+  return tmp;
 }
 
 
-
-var config = {
-  type: 'line',
-  data: data,
-  options: {
-      responsive: true
+function getTags(array){
+  var unique = {};
+  var distinct = [];
+  for( var i in array ){
+    var un = unique[array[i].tag];
+    if( typeof(un) == "undefined"){
+      distinct.push(array[i].tag);
+     }
+    unique[array[i].tag] = 0;
   }
-};
+  return distinct;
+}
 
 
+var titles = ["title_1" , "title_2"]
+
+
+
+
+function newData(label, data, bgcolor){
+  d = {
+    fill: false,
+    lineTension: 0.1,
+    backgroundColor: bgcolor,
+    borderColor: bgcolor,
+    borderDashOffset: 0.0,
+    pointBorderColor: "red",
+    pointBackgroundColor: "red",
+    pointBorderWidth: 1,
+    pointHoverRadius: 5,
+    pointRadius: 5,
+    pointHitRadius: 10,
+  }
+  d.label = label;
+  d.data = data;
+  return d;
+}
+
+var ops = {
+        responsive: true,
+          scales: {
+              xAxes: [{
+                  type: 'linear',
+                  position: 'bottom'
+              }]
+          }};
+
+
+
+
+
+var mydata
 window.onload = function() {
+   mydata = JSON.parse(log);
+
+   var tags = getTags(mydata)
+
+  var dataByTag = []
+
+  for (var i = 0; i < tags.length; i++) {
+   dataByTag.push(filterByTag(mydata, tags[i]));
+  }
+
+
+
+  var datasets = [];
+
+  for (var i = 0; i < dataByTag.length; i++) {
+    var tmp = newData(dataByTag[i][0].tag, dataByTag[i], colors[i])
+    datasets.push(tmp)
+  }
+
+  var data = {
+    datasets: datasets,
+  }
+
+  var config = {
+    type: 'line',
+    "data": {"datasets": datasets},
+    options: ops
+  };
+
+
+
+
+  
   var ctx = document.getElementById("chart-area").getContext("2d");
-  window.myPie = new Chart(ctx, config);
+  window.myChart = new Chart(ctx, config);
+
+
+  var newItem = document.createElement("p");
+  newItem.innerHTML = "TESTING"
+
+  var list = document.getElementById("myList");
+  list.insertBefore(newItem, list.firstChild);
+
 };
+
+
+
+
 
