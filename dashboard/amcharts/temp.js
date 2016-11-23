@@ -142,18 +142,13 @@ jQuery(document).ready(function() {
       dataset.dataProvider = generateChartData();
       dataset.categoryField = "date";
 
-      // LOOP THROUGH PANELS
-      // TO GENERATE DATA AND CREATE FIELDMAPPINGS FOR EACH GRAPH
+      // LOOP THROUGH PANELS (only 1 panel exists)
 
-      for ( i1 in chart.panels ) {
+      for ( pan in chart.panels ) {
         // LOOP THROUGH PANEL GRAPHS
-        for ( i2 in chart.panels[ i1 ].stockGraphs ) {
-          var valueField = chart.panels[ i1 ].stockGraphs[ i2 ].valueField;
-          
-          chart.panels[ i1 ].bullet = "square";
-          chart.panels[ i1 ].bulletSize = 12;
+        for ( gra in chart.panels[pan].stockGraphs ) {
+          var valueField = chart.panels[pan].stockGraphs[gra].valueField;
 
-          
           // GENERATE NEW GRAPH DATA
           dataset.dataProvider = generateChartData( dataset.dataProvider, valueField );
 
