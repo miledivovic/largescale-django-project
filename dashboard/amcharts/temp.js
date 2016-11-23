@@ -1,33 +1,71 @@
 var dataset;
+var glob = "SFSDF"
+var firstDate = new Date();
+firstDate.setHours( 0, 0, 0, 0 );
+firstDate.setDate( firstDate.getDate() - 10 );
 
+var periods = 
+  [ 
+    {
+      "period": "hh",
+      "count": 1,
+      "label": "1 hour"
+    },{
+      "period": "DD",
+      "count": 1,
+      "label": "1 day"
+    },{
+      "period": "DD",
+      "count": 10,
+      "label": "10 days"
+    }, {
+      "period": "MM",
+      "count": 1,
+      "label": "1 month"
+    }, {
+      "period": "YYYY",
+      "count": 1,
+      "label": "1 year",
+      "selected": true
+    }, {
+      "period": "YTD",
+      "label": "YTD"
+    }, {
+      "period": "MAX",
+      "label": "MAX"
+    } 
+  ]
 
-// DATA GENERATOR; FULFILLS GIVE DATASET
+//     
+
+// TEMPORARY RANDOM DATA GENERATOR
 function generateChartData( data, field ) {
-  var chartData = data ? data : [];
-  var firstDate = new Date();
-
-  firstDate.setHours( 0, 0, 0, 0 );
-  firstDate.setDate( firstDate.getDate() - 2000 );
-
-  for ( var i = 0; i < 2000; i++ ) {
-    var value = Math.round( Math.random() * ( 30 ) + 100 );
-
-    // ADD NEW FIELD TO PASSED DATASET
-    if ( data ) {
-      chartData[ i ][ field ] = value;
-
-      // CREATE NEW ONE
-    } else {
-      var newDate = new Date( firstDate );
-      newDate.setDate( newDate.getDate() + i );
-
-      chartData.push( {
-        date: newDate,
-        value: value
-      } );
-    }
+  var ret = [];
+  for (var i = 0; i < 10; i++) {
+    
+    var randVal = Math.floor(Math.random() * (100));
+    ret.push({
+      "value": randVal,
+    });
   }
-  return chartData;
+
+  function compare(a,b) {
+    if (a.value < b.value)
+      return -1;
+    if (a.value > b.value)
+      return 1;
+    return 0;
+  }
+
+  ret.sort(compare);
+
+  for (var i = 0; i < ret.length; i++) {
+    var newDate = new Date(firstDate);
+    newDate.setDate(newDate.getDate() + i );
+    ret[i]["date"] = newDate;
+  }
+
+  return ret;
 }
 
 
@@ -35,40 +73,27 @@ function generateChartData( data, field ) {
 // CREATE CHART
 var chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
-  "dataSets": [ 
-      {
-        "title": "Dataset 1",
-        "fieldMappings": [ {
-          "fromField": "value",
-          "toField": "value"
-        } ],
-        "dataProvider": generateChartData(),
-        "categoryField": "date"
-      }, 
-      {
-        "title": "Dataset 2",
-        "fieldMappings": [ {
-          "fromField": "value",
-          "toField": "value"
-        } ],
-        "dataProvider": generateChartData(),
-        "categoryField": "date"
-      } 
-  ],
-  "panels": [ 
-      {
-        "title": "Panel 1",
-        "stockGraphs": [ {
-          "valueField": "value",
-          "comparable": true
-        } ],
-        "stockLegend": {}
-      } 
-  ],
+  
+  "dataSets": [],
+  
+  "panels": [{
+    "title": "Panel 1",
+    "recalculateToPercents": "never",
+    
+    "stockGraphs": [{
+      "valueField": "value",
+      "comparable": true,
+      "bullet": "round",
+      "compareGraphBullet" : "round"
+    }],
+
+    "stockLegend": {}
+  }],
 
   "chartCursorSettings": {
     "valueLineEnabled": true,
-    "valueLineBalloonEnabled": true
+    "valueLineBalloonEnabled": true,
+    "bulletsEnabled" : true
   },
 
   "dataSetSelector": {
@@ -76,136 +101,73 @@ var chart = AmCharts.makeChart( "chartdiv", {
   },
 
   "periodSelector": {
+    "dateFormat" : "MM-DD-YYYY HH:NN:SS",
     "position": "left",
-    "inputFieldsEnabled": false,
-    "periods": [ 
-        {
-          "period": "DD",
-          "count": 1,
-          "label": "1 day"
-        },{
-          "period": "DD",
-          "count": 10,
-          "label": "10 days"
-        }, {
-          "period": "MM",
-          "count": 1,
-          "label": "1 month"
-        }, {
-          "period": "YYYY",
-          "count": 1,
-          "label": "1 year",
-          "selected": true
-        }, {
-          "period": "YTD",
-          "label": "YTD"
-        }, {
-          "period": "MAX",
-          "label": "MAX"
-        } 
-    ]
+    "inputFieldsEnabled": true,
+    "periods": periods
+  },
+
+  "balloon": {
+    "adjustBorderColor": true,
+    "color": "#000000",
+    "cornerRadius": 5,
+    "fillColor": "#FFFFFF"
   }
+
 
 } );
 
 
 
-jQuery( document ).ready( function() {
-  // REMOVE DATASET
-  jQuery( ".btn-dataset-remove" ).on( "click", function() {
+jQuery(document).ready(function() {
+    // REMOVE DATASET
+    jQuery( ".btn-dataset-remove" ).on( "click", function() {
     if ( chart.dataSets.length > 1 ) {
       // REMOVE LATEST DATASET AND VALIDATE
       var dataset = chart.dataSets.pop();
       chart.validateNow();
 
     }
-  } );
-  // ADD DATASET
-  jQuery( ".btn-dataset-add" ).on( "click", function() {
-    var tmp = [];
-
-    // CREATE DATASET
-     dataset = new AmCharts.DataSet();
-    dataset.title = "Dataset " + ( chart.dataSets.length + 1 );
-    dataset.dataProvider = generateChartData();
-    dataset.categoryField = "date";
-
-    // LOOP THROUGH PANELS
-    // TO GENERATE DATA AND CREATE FIELDMAPPINGS FOR EACH GRAPH
-    for ( i1 in chart.panels ) {
-      // LOOP THROUGH PANEL GRAPHS
-      for ( i2 in chart.panels[ i1 ].stockGraphs ) {
-        var valueField = chart.panels[ i1 ].stockGraphs[ i2 ].valueField;
-
-        // GENERATE NEW GRAPH DATA
-        dataset.dataProvider = generateChartData( dataset.dataProvider, valueField );
-
-        // ADD FIELDMAPPING
-        dataset.fieldMappings.push( {
-          "fromField": valueField,
-          "toField": valueField
-        } );
-      }
-      tmp.push( chart.panels[ i1 ].title );
-    }
-
-    // ADD NEW DATASET
-    chart.dataSets.push( dataset );
-    chart.validateNow();
-  } );
-
-
-
-/**
- *  HANDLE PANELS:
- */
-
-  // REMOVE PANEL
-  jQuery( ".btn-panel-remove" ).on( "click", function() {
-    if ( chart.panels.length ) {
-      // REMOVE LATEST PANEL AND VALIDATE
-      var panel = chart.panels.pop();
-      chart.removePanel( panel );
-      chart.validateNow();
-
-      // GROWL
-      // growl( "danger", panel.title );
-    } else {
-      // growl( "info", "No panels" );
-    }
-  } );
-
-
-
-  // ADD PANEL
-  jQuery( ".btn-panel-add" ).on( "click", function() {
-    var id = ( chart.panels.length + 1 );
-    var valueField = "p" + id;
-
-    // MAIN DATASET (CURRENT SELECTION)
-    var dataSet = chart.mainDataSet;
-    dataSet.fieldMappings.push( {
-      "fromField": valueField,
-      "toField": valueField
     } );
-    dataSet.dataProvider = generateChartData( dataSet.dataProvider, valueField );
 
-    // NEW PANEL
-    var panel = new AmCharts.StockPanel();
-    panel.showCategoryAxis = chart.panels.length == 0;
-    panel.title = "Panel " + id;
-    panel.stockLegend = {};
 
-    // NEW GRAPH
-    var graph = new AmCharts.StockGraph();
-    graph.valueField = valueField;
-    graph.comparable = true;
-    panel.addStockGraph( graph );
+    // ADD DATASET
+    jQuery( ".btn-dataset-add" ).on( "click", function() {
+      glob = chart.panels[0].stockGraphs;
 
-    // ADD AND VALIDATE
-    chart.addPanel( panel );
-    chart.validateNow();
-    chart.validateData();
 
-  } );
+      // CREATE DATASET
+      dataset = new AmCharts.DataSet();
+      dataset.title = "Dataset " + ( chart.dataSets.length + 1 );
+      dataset.dataProvider = generateChartData();
+      dataset.categoryField = "date";
+
+      // LOOP THROUGH PANELS
+      // TO GENERATE DATA AND CREATE FIELDMAPPINGS FOR EACH GRAPH
+
+      for ( i1 in chart.panels ) {
+        // LOOP THROUGH PANEL GRAPHS
+        for ( i2 in chart.panels[ i1 ].stockGraphs ) {
+          var valueField = chart.panels[ i1 ].stockGraphs[ i2 ].valueField;
+          
+          chart.panels[ i1 ].bullet = "square";
+          chart.panels[ i1 ].bulletSize = 12;
+
+          
+          // GENERATE NEW GRAPH DATA
+          dataset.dataProvider = generateChartData( dataset.dataProvider, valueField );
+
+          // ADD FIELDMAPPING
+          dataset.fieldMappings.push( {
+            "fromField": valueField,
+            "toField": valueField
+          } );
+        }
+      }
+
+      // ADD NEW DATASET
+      chart.dataSets.push( dataset );
+      chart.validateNow();
+    } );
+
 } );
