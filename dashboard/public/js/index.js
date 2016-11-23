@@ -1,123 +1,57 @@
-
-colors = [
-  'rgb(255, 99, 132)',
-  'rgb(75, 192, 192)',
-  'rgb(54, 162, 235)',
-  'rgb(153, 102, 255)',
-  'rgb(231,233,237)',
-  'rgb(255, 159, 64)',
-  'rgb(255, 205, 86)',
-]
-
-
-function filterByTag(md , t){
-  var tmp = md.filter(function (el) {
-      return el.tag === t;
-  });
-  console.log(t)
-  return tmp;
-}
-
-
-function getTags(array){
-  var unique = {};
-  var distinct = [];
-  for( var i in array ){
-    var un = unique[array[i].tag];
-    if( typeof(un) == "undefined"){
-      distinct.push(array[i].tag);
-     }
-    unique[array[i].tag] = 0;
-  }
-  return distinct;
-}
-
-
-var titles = ["title_1" , "title_2"]
-
-
-
-
-function newData(label, data, bgcolor){
-  d = {
-    fill: false,
-    lineTension: 0.1,
-    backgroundColor: bgcolor,
-    borderColor: bgcolor,
-    borderDashOffset: 0.0,
-    pointBorderColor: "red",
-    pointBackgroundColor: "red",
-    pointBorderWidth: 1,
-    pointHoverRadius: 5,
-    pointRadius: 5,
-    pointHitRadius: 10,
-  }
-  d.label = label;
-  d.data = data;
-  return d;
-}
-
-var ops = {
-        responsive: true,
-          scales: {
-              xAxes: [{
-                  type: 'linear',
-                  position: 'bottom'
-              }]
-          }};
-
-
-
-
-
-var mydata
 window.onload = function() {
-   mydata = JSON.parse(log);
+  var val = 5000;
+  var minDate = new Date(val);
 
-   var tags = getTags(mydata)
+  // call function from 'readData.js' to import data
+  var datasets = getDataSet();
 
-  var dataByTag = []
+  // set graphing options
+  var options = {
+  responsive: true,
+    scales: {
+      xAxes: [{
+        type: 'time',
+        ticks: {
+                        beginAtZero:true,
+                        min: 0,
+                        max:   "12/30/2016"  
+                    }
+      }]
+    }};
 
-  for (var i = 0; i < tags.length; i++) {
-   dataByTag.push(filterByTag(mydata, tags[i]));
-  }
 
-
-
-  var datasets = [];
-
-  for (var i = 0; i < dataByTag.length; i++) {
-    var tmp = newData(dataByTag[i][0].tag, dataByTag[i], colors[i])
-    datasets.push(tmp)
-  }
-
-  var data = {
-    datasets: datasets,
-  }
-
+  // store everything in config
   var config = {
-    type: 'line',
-    "data": {"datasets": datasets},
-    options: ops
+    "type": "line",
+    "data": {
+      "datasets": datasets ,
+     labels: ["10/21/2016", "12/30/2016","12/30/2017"]
+    },
+    "options": options
   };
 
 
+  // display chart
+  var chartArea = document.getElementById("chart-area").getContext("2d");
+  var myLineChart = new Chart(chartArea, config);
 
-
-  
-  var ctx = document.getElementById("chart-area").getContext("2d");
-  window.myChart = new Chart(ctx, config);
-
-
-  var newItem = document.createElement("p");
-  newItem.innerHTML = "TESTING"
-
-  var list = document.getElementById("myList");
-  list.insertBefore(newItem, list.firstChild);
-
+  myLineChart.update();
+  // var newItem = document.createElement("p");
+  // newItem.innerHTML = "TESTING"
+  // var list = document.getElementById("myList");
+  // list.insertBefore(newItem, list.firstChild);
 };
 
+/*
+  axisX:{
+        title: "time",
+        gridThickness: 2,
+        interval:2, 
+        intervalType: "hour",        
+        valueFormatString: "hh TT K", 
+        labelAngle: -20
+      },
 
-
-
+ */
+    
 
