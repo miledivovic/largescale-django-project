@@ -1,3 +1,6 @@
+var dataset;
+
+
 // DATA GENERATOR; FULFILLS GIVE DATASET
 function generateChartData( data, field ) {
   var chartData = data ? data : [];
@@ -27,81 +30,86 @@ function generateChartData( data, field ) {
   return chartData;
 }
 
-// JUST SOME VISUAL FEEDBACK
-function growl( type, msg ) {
-  var alert = jQuery( "<div>" ).addClass( "alert alert-" + type ).on( "click", function() {
-    jQuery( this ).remove();
-  } ).prependTo( ".growl" );
-  jQuery( "<p>" ).text( msg ).appendTo( alert );
-  jQuery( alert ).animate( {
-    "opacity": 0
-  }, 3000, function() {
-    jQuery( this ).remove();
-  } );
-}
+
 
 // CREATE CHART
 var chart = AmCharts.makeChart( "chartdiv", {
   "type": "stock",
-  "dataSets": [ {
-    "title": "Dataset 1",
-    "fieldMappings": [ {
-      "fromField": "value",
-      "toField": "value"
-    } ],
-    "dataProvider": generateChartData(),
-    "categoryField": "date"
-  }, {
-    "title": "Dataset 2",
-    "fieldMappings": [ {
-      "fromField": "value",
-      "toField": "value"
-    } ],
-    "dataProvider": generateChartData(),
-    "categoryField": "date"
-  } ],
-  "panels": [ {
-    "title": "Panel 1",
-    "stockGraphs": [ {
-      "valueField": "value",
-      "comparable": true
-    } ],
-    "stockLegend": {}
-  } ],
+  "dataSets": [ 
+      {
+        "title": "Dataset 1",
+        "fieldMappings": [ {
+          "fromField": "value",
+          "toField": "value"
+        } ],
+        "dataProvider": generateChartData(),
+        "categoryField": "date"
+      }, 
+      {
+        "title": "Dataset 2",
+        "fieldMappings": [ {
+          "fromField": "value",
+          "toField": "value"
+        } ],
+        "dataProvider": generateChartData(),
+        "categoryField": "date"
+      } 
+  ],
+  "panels": [ 
+      {
+        "title": "Panel 1",
+        "stockGraphs": [ {
+          "valueField": "value",
+          "comparable": true
+        } ],
+        "stockLegend": {}
+      } 
+  ],
+
   "chartCursorSettings": {
     "valueLineEnabled": true,
     "valueLineBalloonEnabled": true
   },
+
   "dataSetSelector": {
     "position": "left"
   },
+
   "periodSelector": {
     "position": "left",
     "inputFieldsEnabled": false,
-    "periods": [ {
-      "period": "DD",
-      "count": 10,
-      "label": "10 days"
-    }, {
-      "period": "MM",
-      "count": 1,
-      "label": "1 month"
-    }, {
-      "period": "YYYY",
-      "count": 1,
-      "label": "1 year",
-      "selected": true
-    }, {
-      "period": "YTD",
-      "label": "YTD"
-    }, {
-      "period": "MAX",
-      "label": "MAX"
-    } ]
+    "periods": [ 
+        {
+          "period": "DD",
+          "count": 1,
+          "label": "1 day"
+        },{
+          "period": "DD",
+          "count": 10,
+          "label": "10 days"
+        }, {
+          "period": "MM",
+          "count": 1,
+          "label": "1 month"
+        }, {
+          "period": "YYYY",
+          "count": 1,
+          "label": "1 year",
+          "selected": true
+        }, {
+          "period": "YTD",
+          "label": "YTD"
+        }, {
+          "period": "MAX",
+          "label": "MAX"
+        } 
+    ]
   }
+
 } );
 
-// WAIT UNTIL DOCUMENT IS READY TO BIND BUTTONS
+
+
 jQuery( document ).ready( function() {
   // REMOVE DATASET
   jQuery( ".btn-dataset-remove" ).on( "click", function() {
@@ -110,21 +118,14 @@ jQuery( document ).ready( function() {
       var dataset = chart.dataSets.pop();
       chart.validateNow();
 
-      // GROWL
-      growl( "danger", dataset.title );
-    } else {
-
-      // GROWL
-      growl( "info", "Kept latest" );
     }
   } );
-
   // ADD DATASET
   jQuery( ".btn-dataset-add" ).on( "click", function() {
     var tmp = [];
 
     // CREATE DATASET
-    var dataset = new AmCharts.DataSet();
+     dataset = new AmCharts.DataSet();
     dataset.title = "Dataset " + ( chart.dataSets.length + 1 );
     dataset.dataProvider = generateChartData();
     dataset.categoryField = "date";
@@ -148,13 +149,16 @@ jQuery( document ).ready( function() {
       tmp.push( chart.panels[ i1 ].title );
     }
 
-    // ADD NEW DATASET AND VALIDATE
+    // ADD NEW DATASET
     chart.dataSets.push( dataset );
     chart.validateNow();
-
-    // GROWL
-    growl( "success", dataset.title + " fulfilled " + tmp.join( "," ) );
   } );
+
+
+
+/**
+ *  HANDLE PANELS:
+ */
 
   // REMOVE PANEL
   jQuery( ".btn-panel-remove" ).on( "click", function() {
@@ -165,11 +169,13 @@ jQuery( document ).ready( function() {
       chart.validateNow();
 
       // GROWL
-      growl( "danger", panel.title );
+      // growl( "danger", panel.title );
     } else {
-      growl( "info", "No panels" );
+      // growl( "info", "No panels" );
     }
   } );
+
+
 
   // ADD PANEL
   jQuery( ".btn-panel-add" ).on( "click", function() {
@@ -201,7 +207,5 @@ jQuery( document ).ready( function() {
     chart.validateNow();
     chart.validateData();
 
-    // GROWL
-    growl( "success", panel.title + " append to " + chart.mainDataSet.title );
   } );
 } );
