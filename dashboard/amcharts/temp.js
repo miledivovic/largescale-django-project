@@ -1,5 +1,4 @@
 var dataset;
-var glob = "SFSDF"
 var firstDate = new Date();
 firstDate.setHours( 0, 0, 0, 0 );
 firstDate.setDate( firstDate.getDate() - 10 );
@@ -133,7 +132,6 @@ jQuery(document).ready(function() {
 
     // ADD DATASET
     jQuery( ".btn-dataset-add" ).on( "click", function() {
-      glob = chart.panels[0].stockGraphs;
 
 
       // CREATE DATASET
