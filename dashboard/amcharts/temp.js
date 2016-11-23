@@ -77,7 +77,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
   "dataSets": [],
   
   "panels": [{
-    "title": "Panel 1",
+    "title": "App Monitor",
     "recalculateToPercents": "never",
     
     "stockGraphs": [{
