@@ -1,4 +1,7 @@
-<link rel="stylesheet" href="style.css"> 
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'polls/style.css' %}"> 
+
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/amstock.js"></script>
@@ -6,21 +9,23 @@
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-<script type="text/javascript" src = "amcharts.js"></script>
 
+ <!-- STATIC FILE -->
+<script type="text/javascript" src = "{% static 'polls/makecharts.js' %}"></script>
+
+<script type="text/javascript"> 
+	var myJSON = "{{JSONdata}}"
+	myJSON = JSON.parse(myJSON.replace(/&quot;/g,'"'));
+
+</script>
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 <script src="https://www.amcharts.com/lib/3/amstock.js"></script>
 
-<div class="growl"></div>
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <p>
-        <!-- <button class="btn btn-default btn-dataset-add">Add Dataset</button>
-        <button class="btn btn-default btn-dataset-remove">Remove Dataset</button> -->
-      </p>
       <div class="well">
         <div id="chartdiv"></div>
       </div>
