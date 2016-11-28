@@ -1,9 +1,12 @@
 # largescale-django-project
 
 DASHBOARD:
-cd dashboard/mysite
-python manage.py runserver
 
-to see config page and dashboard page, navigate to:
-http://127.0.0.1:8000/polls/config
-http://127.0.0.1:8000/polls/dash
+<p>cd dashboard/mysite<p>
+
+<p>python manage.py runserver<p>
+
+<ul>to see config page and dashboard page, navigate to:
+<li>http://127.0.0.1:8000/polls/config</li>
+<li>http://127.0.0.1:8000/polls/dash</li>
+</ul>
