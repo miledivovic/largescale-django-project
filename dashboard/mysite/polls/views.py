@@ -84,3 +84,8 @@ def dashboard(request):
     d = f.readline()
     return render(request, 'polls/dashboard.html', {"JSONdata" : d})
 
+
+
+def config(request):
+    return render(request, 'polls/config.html')
+

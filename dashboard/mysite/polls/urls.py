@@ -8,6 +8,8 @@ app_name = 'polls'
 urlpatterns = [
 	#dash
     url(r'^dash$', views.dashboard, name='dashboard'),
+    #config
+    url(r'^config$', views.config, name='config'),
     #data
     url(r'^data$', views.data, name='data'),
     # ex: /polls/
