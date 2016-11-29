@@ -51,7 +51,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'mysite.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
@@ -126,6 +126,6 @@ STATIC_URL = '/static/'
 settings_dir = os.path.dirname(__file__)
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
-JSONFILES_FOLDER = os.path.join(PROJECT_ROOT, 'dashboard/static/dashboard')
+JSONFILES_FOLDER = os.path.join(PROJECT_ROOT, 'dashboard/dashboard/static/dashboard')
 
 
