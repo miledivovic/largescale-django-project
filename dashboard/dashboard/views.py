@@ -9,7 +9,7 @@ import sys
 import os.path
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
-from mysite.settings import XMLFILES_FOLDER
+from mysite.settings import JSONFILES_FOLDER
 
 
 def index(request):
@@ -19,9 +19,7 @@ def index(request):
 
 
 def dashboard(request):
-	json_file = XMLFILES_FOLDER+"/data.json"
-	print json_file
-
+	json_file = JSONFILES_FOLDER+"/data.json"
 	f = open(json_file)
 	d = f.readline()
 	return render(request, 'dashboard/dashboard.html', {"JSONdata" : d})

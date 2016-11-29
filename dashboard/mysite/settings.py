@@ -126,6 +126,6 @@ STATIC_URL = '/static/'
 settings_dir = os.path.dirname(__file__)
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
-XMLFILES_FOLDER = os.path.join(PROJECT_ROOT, 'dashboard/static/dashboard')
+JSONFILES_FOLDER = os.path.join(PROJECT_ROOT, 'dashboard/static/dashboard')
 
 
