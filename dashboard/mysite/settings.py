@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'polls.apps.PollsConfig',
+    'dashboard.apps.DashboardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,6 +123,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_URL = "/Users/clararubin/Desktop/django-sample/mysite/polls/static/"
-# STATIC_ROOT = "/Users/clararubin/Desktop/django-sample/mysite/polls/static/"
+settings_dir = os.path.dirname(__file__)
+
+PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
+XMLFILES_FOLDER = os.path.join(PROJECT_ROOT, 'dashboard/static/dashboard')
+
 
