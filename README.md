@@ -8,6 +8,6 @@ DASHBOARD:
 
 to see config page and dashboard page, navigate to:
 <ul>
-<li>http://127.0.0.1:8000/polls/config</li>
-<li>http://127.0.0.1:8000/polls/dash</li>
+<li>http://127.0.0.1:8000/dashboard/config</li>
+<li>http://127.0.0.1:8000/dashboard/dash</li>
 </ul>
