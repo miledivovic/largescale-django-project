@@ -1,26 +1,31 @@
 How to use the client
-------------------------------    
+------------------------------
+## Creating & Incrementing Counters
 
+Import client into the script(s) that want to increment counters, using the following command:
+```python
+from monitoring import counter
+```
 
-1) Creating & Incrementing Counters
+Then just call the following API, with the counter tag that you want to increment:
+```python
+counter.increment('COUNTER NAME')
+```
 
-	Import client into the script(s) that want to increment counters, using the following command:
-		from monitoring import counter
+The client will create a new counter with value 1 if it doesn't exist.
 
-	Then just call the following API, with the Counter Name that you want to increment:
-		counter.increment(`COUNTER NAME`)
+Otherwise, it will increment the existing value by 1
 
-	The client will create a new counter with value 1 if it doesn't exist, else it will increment the existing value by 1
+## View to give Prober access to the data
 
-2) View to give Prober access to the data
+Do the following in the main website's urls.py
 
-	Do the following in the main website's urls.py
+Import monitoring url, using the following command:
+```python
+from monitoring import urls	
+```
 
-	Import monitoring url, using the following command:
-		from monitoring import urls	
-
-	Then added the following line in urlpatterns list:
-		url(r'^monitoring/', include('monitoring.urls', namespace="monitoring"))
-
-
-
+Then added the following line in urlpatterns list:
+```python
+url(r'^monitoring/', include('monitoring.urls', namespace="monitoring"))
+```
