@@ -12,9 +12,7 @@ Then just call the following API, with the counter tag that you want to incremen
 counter.increment('COUNTER NAME')
 ```
 
-The client will create a new counter with value 1 if it doesn't exist.
-
-Otherwise, it will increment the existing value by 1
+The client will create a new counter with value 1 if it doesn't exist. Otherwise, it will increment the existing value by 1.
 
 ## View to give Prober access to the data
 
