@@ -2,7 +2,6 @@
 
 DASHBOARD:
 <p>Must use python 2</p>
-<p>$ cd dashboard/mysite</p>
 
 <p>$ python manage.py runserver</p>
 
