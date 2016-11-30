@@ -79,12 +79,11 @@ WSGI_APPLICATION = 'wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'mydb',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'monitoring',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'PASSWORD': 'root',
+        'HOST': 'localhost'
     }
 }
 
