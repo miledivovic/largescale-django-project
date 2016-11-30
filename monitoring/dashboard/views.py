@@ -22,7 +22,7 @@ def dashboard(request):
 	json_file = JSONFILES_FOLDER+"/data.json"
 	f = open(json_file)
 	d = f.readline()
-	return render(request, 'dashboard/dashboard.html', {"JSONdata" : d})
+	return render(request, 'templates/dashboard/dashboard.html', {"JSONdata" : d})
 
 
 def config(request):

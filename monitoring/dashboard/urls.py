@@ -1,11 +1,17 @@
-'''
-outer level of urls: dashboard & admin
-'''
+from django.conf.urls import url
+import dashboard.views as views
 
-from django.conf.urls import include, url
-from django.contrib import admin
+app_name = 'dashboard'
 
+'''
+inner level of urls, e.g., dashboard/dash , dashboard/config
+'''
 urlpatterns = [
-    url(r'^dashboard/', include('dashboard.urls')),
-    url(r'^admin/', admin.site.urls),
+	#dash
+    url(r'^dash$', views.dashboard, name='dashboard'),
+    #config
+    url(r'^config$', views.config, name='config'),
+    # ex: /dashboard/
+    url(r'^$', views.index, name='index'),
+	
 ]
