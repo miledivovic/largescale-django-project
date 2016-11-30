@@ -1,7 +1,11 @@
-from django.conf.urls import url
+'''
+outer level of urls: dashboard & admin
+'''
 
-from . import views
+from django.conf.urls import include, url
+from django.contrib import admin
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^dashboard/', include('dashboard.urls')),
+    url(r'^admin/', admin.site.urls),
 ]

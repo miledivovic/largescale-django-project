@@ -30,4 +30,3 @@ class Counter(models.Model):
      timestamp = models.DateTimeField('date probed')
      tag = models.CharField(max_length=200)
      value = models.PositiveIntegerField()
-

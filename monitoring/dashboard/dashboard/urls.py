@@ -4,7 +4,9 @@ from . import views
 
 app_name = 'dashboard'
 
-
+'''
+inner level of urls, e.g., dashboard/dash , dashboard/config
+'''
 urlpatterns = [
 	#dash
     url(r'^dash$', views.dashboard, name='dashboard'),
