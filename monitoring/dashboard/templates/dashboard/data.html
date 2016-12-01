@@ -3,9 +3,7 @@
 	
 		{% for counter in latest_counter_list %}
 			{
-				counter_id: {{counter_id}},
-				node_id: {{node_id}},
-				timestamp: {{timestamp}},
+				timestamp: {{counter.timestamp}},
 				tag: {{ counter.tag }},
 				count: {{ counter.value }} 
 			},

@@ -12,6 +12,9 @@ class Service(models.Model):
      owner = models.ForeignKey(User, on_delete=models.CASCADE)
      active = models.BooleanField(default=True)
 
+     def __unicode__(self):
+          return self.name
+
 class Node(models.Model):
      node_id = models.AutoField(primary_key=True)
      service_id = models.ForeignKey(Service, on_delete=models.CASCADE)
@@ -24,9 +27,16 @@ class Node(models.Model):
      error_msg = models.CharField(max_length=200)
      last_failure = models.DateTimeField('last failed')
 
+     def __unicode__(self):
+          return self.node_ip
+
 class Counter(models.Model):
      counter_id = models.AutoField(primary_key=True)
      node_id = models.ForeignKey(Node, on_delete=models.CASCADE)
      timestamp = models.DateTimeField('date probed')
      tag = models.CharField(max_length=200)
      value = models.PositiveIntegerField()
+
+     def __unicode__(self):
+          st =  str(self.tag + " " + str(self.value))
+          return st

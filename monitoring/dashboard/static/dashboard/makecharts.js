@@ -1,4 +1,3 @@
-var glob=[]
 /**
  * buttons that user can click on to display data over particular duration
  */
@@ -81,10 +80,22 @@ var chart = AmCharts.makeChart( "chartdiv", {
     "color": "#000000",
     "cornerRadius": 5,
     "fillColor": "#FFFFFF"
+  },
+  "categoryAxis": {
+    "minPeriod" : "ss",
+  },
+  "categoryAxesSettings": {
+    "minPeriod": "ss"
   }
+  // "dataDateFormat" : "MM-DD-YYYY HH:NN:SS",
+
 
 
 } );
+
+
+// var categoryAxis = chart.categoryAxis;
+// categoryAxis.minPeriod = "hh";
 
 function filterByTag(data , tag){
   return data.filter(function (el) {
@@ -101,7 +112,8 @@ function getTags(){
       distinct.push(mytag);
     }
     found[mytag] = 0;
-    mydata[i].x = new Date(parseInt(mydata[i].x))
+    // mydata[i].x = new Date(parseInt(mydata[i].x))
+    mydata[i].x = mydata[i].x
     }
     return distinct;
 }
@@ -130,7 +142,7 @@ window.onload= function(){
 
 var startDate = new Date();
 startDate.setHours( 0, 0, 0, 0 );
-startDate.setDate( startDate.getDate() - 10 );
+startDate.setDate( startDate.getDate() );
 
 
 
@@ -138,11 +150,12 @@ startDate.setDate( startDate.getDate() - 10 );
 function getNextData(myTag) {
   var points = filterByTag(mydata, myTag);
   for (var i = 0; i < points.length; i++) {
-    var d = new Date(points[i].date)
+    // var d = new Date(points[i].date)
+    var d = points[i].date
         points[i].date  = d;
+        console.log(points[i].date)
 
   }
-    glob.push(points)
 
   return points;
 }
