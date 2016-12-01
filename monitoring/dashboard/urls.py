@@ -8,10 +8,12 @@ inner level of urls, e.g., dashboard/dash , dashboard/config
 '''
 urlpatterns = [
 	#dash
-    url(r'^dash$', views.dashboard, name='dashboard'),
+    url(r'^dash$', views.dash, name='dash'),
     #config
     url(r'^config$', views.config, name='config'),
-    # ex: /dashboard/
-    url(r'^$', views.index, name='index'),
+    #data
+    url(r'^data$', views.data, name='data'),
+    #home
+    url(r'', views.index, name='index'),
 	
 ]
