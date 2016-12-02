@@ -5,8 +5,7 @@ DASHBOARD:
 
 <p>$ python manage.py runserver</p>
 
-to see config page and dashboard page, navigate to:
+to see dashboard page, navigate to:
 <ul>
-<li>http://127.0.0.1:8000/dashboard/config</li>
 <li>http://127.0.0.1:8000/dashboard/dash</li>
 </ul>
