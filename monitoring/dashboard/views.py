@@ -8,10 +8,6 @@ import os.path
 from models import Counter
 import time
 
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
-from settings import JSONFILES_FOLDER
-
 
 def counterToJson(counter):
     json = '{'
@@ -47,20 +43,17 @@ def dataToJson(counters):
 def data(request):
     latest_counter_list = Counter.objects.raw('SELECT timestamp, counter_id, tag, value FROM dashboard_counter;')
     context = {'latest_counter_list': latest_counter_list}
-    return render(request, 'dashboard/data.html', context)
+    return render(request, 'data.html', context)
 
 @login_required
 def dash(request):
-    # json_file = JSONFILES_FOLDER+"/data.json"
-    # f = open(json_file)
-    # d = f.readline()
     latest_counter_list = Counter.objects.raw('SELECT timestamp, counter_id, tag, value FROM dashboard_counter order by timestamp asc;')
     json = dataToJson(latest_counter_list)
     print json
-    return render(request, 'templates/dashboard/dashboard.html', {"JSONdata" : json})
+    return render(request, 'templates/dashboard.html', {"JSONdata" : json})
 
 
 def index(request):
-    return render(request, 'dashboard/index.html')
+    return render(request, 'index.html')
 
 

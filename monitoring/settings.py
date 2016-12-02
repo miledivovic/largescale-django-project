@@ -125,7 +125,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-JSONFILES_FOLDER = os.path.join(PROJECT_ROOT, 'monitoring/dashboard/static/dashboard')
 
 STATIC_ROOT = '/tmp/'
