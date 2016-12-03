@@ -49,7 +49,7 @@ def data(request):
 def dash(request):
     latest_counter_list = Counter.objects.raw('SELECT timestamp, counter_id, tag, value FROM dashboard_counter order by timestamp asc;')
     json = dataToJson(latest_counter_list)
-    print json
+    #print json
     return render(request, 'templates/dashboard.html', {"JSONdata" : json})
 
 
