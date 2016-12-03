@@ -2,12 +2,11 @@
   background-color: #417690;
   height: 40px;
   width: auto;
-  padding: 10px 40px;
-  line-height: 40px;
 }
 
 .headerTitle {
   color: #ffc;
+  font-size: 3em !important;
 }
 
 #chartdiv {
