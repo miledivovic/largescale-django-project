@@ -8,13 +8,13 @@
 
 .homepageLink {
   width: 20%;
+  text-decoration: none;
   display: block;
 }
 
 
 .linksContainer {
   margin-top: 20px;
-  text-decoration: none;
 }
 
 .link {
