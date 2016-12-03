@@ -1,20 +1,23 @@
 .headerBar {
   background: #417690;
   height: 40px;
-  padding: 10px 40px;
+  padding-bottom: 20px;
   line-height: 40px;
   width: auto;
 }
+
 
 .linksContainer {
   margin-top: 20px;
 }
 
-a {
+.homepageLink {
   text-decoration: none;
+  width: 20%;
+  margin-left: 5%;
 }
 .link {
-  border-radius: 5px;
+  border-radius: 15px;
   border-style: solid;
   border-width: 1px;
   border-color: black;
@@ -28,6 +31,7 @@ a {
 .headerTitle {
   color: #f5dd5d;
   font-size: 2em !important;
+  padding-top: 13px;
 }
 
 body {
