@@ -21,11 +21,11 @@ urlpatterns = patterns('',
     # Hello, world!
     # (r'', 'helloworld.views.index'),
 
-    (r'^one/', 'helloworld.views.one'),
+    (r'^one/', 'demo.views.one'),
 
-    (r'^two/', 'helloworld.views.two'),
+    (r'^two/', 'demo.views.two'),
 
-    (r'^three/', 'helloworld.views.three'),
+    (r'^three/', 'demo.views.three'),
 
     url(r'^djanitor/', include('djanitor.urls', namespace="djanitor"))
 )
