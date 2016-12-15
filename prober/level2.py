@@ -73,7 +73,7 @@ def prober ():
                     last_error = datetime.datetime.now()
                 
 
-                sqlTwo = "UPDATE dashboard_node SET last_probed = \'" + str(curr_time) + "\', last_status = " + str(node_status) + ", last_error = \'" + str(last_error) + "\', error_msg = \'" + node_error + "\' WHERE node_id = " + str(node_id)
+                sqlTwo = "UPDATE dashboard_node SET last_probed = \'" + str(curr_time) + "\', last_status = '" + str(node_status) + "', last_failure = \'" + str(last_error) + "\', error_msg = \'" + node_error + "\' WHERE node_id = " + str(node_id)
 
                 print (sqlTwo)
                 try:
