@@ -17,6 +17,7 @@ def prober ():
     curr_time = datetime.datetime.now()
 
     for row in results:
+        print(row)
         node = {}
         node_id = row["node_id"]
         node_ip = row["node_ip"]
@@ -63,17 +64,21 @@ def prober ():
                 
 
                 sqlTwo = "UPDATE dashboard_node SET last_probed = \'" + str(curr_time) + "\', last_status = '" + str(node_status) + "', last_failure = \'" + str(curr_time) + "\', error_msg = \'" + node_error + "\' WHERE node_id = " + str(node_id)
+                print(sqlTwo)
                 try:
                     # Execute the SQL command
                     cursor.execute(sqlTwo)
+
                     # Commit your changes in the database
                     conn.commit()
                 except:
                     # Rollback in case there is any error
+                    print("I am failing here 2")
                     conn.rollback()
 
             if first_value == False:
                 sql = 'INSERT INTO dashboard_counter (node_id, tag, value, timestamp) VALUES ' + value
+                print(sql)
                 try:
                   # Execute the SQL command
                   cursor.execute(sql)
@@ -81,6 +86,7 @@ def prober ():
                   conn.commit()
                 except:
                   # Rollback in case there is any error
+                  print("I am failing here")
                   conn.rollback()
     except Exception as e:
         print(e)
