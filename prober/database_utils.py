@@ -41,6 +41,7 @@ def prober ():
         
         if len(node_list) > 0:
             node_res = curio.run(http_utils.fetch_data(node_list))
+            print(node_res)
             value = ""
             first_value = True
             for node_id in node_res:
