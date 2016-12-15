@@ -7,11 +7,11 @@ from pprint import pprint
 import curio
 
 def prober ():
-
     conn= pymysql.connect(host=config.HOST,user=config.USER,passwd=config.PASS,db='monitoring',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
     cursor=conn.cursor()
 
     sql="SELECT node_id, node_ip, probing_frequency, last_probed FROM dashboard_node WHERE active = '1'"
+    print(sql)
     cursor.execute(sql)
     results=cursor.fetchall()
     node_list = []
@@ -57,7 +57,7 @@ def prober ():
                 node_status = node["status"]
                 node_error = ""
                 last_error = ""
-                
+
                 if node_status != -1:
                     node_data = node["data"]
 
