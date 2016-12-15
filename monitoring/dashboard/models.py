@@ -34,7 +34,7 @@ class Node(models.Model):
 class Counter(models.Model):
      counter_id = models.AutoField(primary_key=True)
      node = models.ForeignKey(Node, on_delete=models.CASCADE)
-     timestamp = models.DateTimeField(default=datetime.now, blank=True)
+     timestamp = models.DateTimeField(auto_now_add=True, blank=False)
      tag = models.CharField(max_length=200)
      value = models.PositiveIntegerField()
 
