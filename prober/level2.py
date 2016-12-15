@@ -7,6 +7,7 @@ from pprint import pprint
 import curio
 
 def prober ():
+    print("I am here")
     conn= pymysql.connect(host=config.HOST,user=config.USER,passwd=config.PASS,db='monitoring',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
     cursor=conn.cursor()
 
