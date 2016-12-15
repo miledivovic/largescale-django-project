@@ -34,6 +34,7 @@ def prober ():
         node["node_port"] = "8000"
         node["get_path"] = "/"
         node["timeout"] = "20"
+        node["node_counter_data_endpoint"] = node_ip
         node_list.append(node)
     try:
         
