@@ -19,7 +19,7 @@ def prober ():
 
 
     for row in results:
-        # print(row)
+        print(row)
         node = {}
         node_id = row["node_id"]
         node_ip = row["node_ip"]
