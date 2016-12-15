@@ -64,9 +64,9 @@ def prober ():
 
                     for data in node_data:
                         if first_value:
-                            value += "(" + str(node_id) + ",'" + str(data) +"', " + str(node_data[data]) +"', " + str(curr_time) + ")"
+                            value += "(" + str(node_id) + ",'" + str(data) +"', '" + str(node_data[data]) +"', '" + str(curr_time) + "'')"
                         else:
-                            value += ",(" + str(node_id) + ",'" + str(data) +"', " + str(node_data[data]) +"', " + str(curr_time) + ")"
+                            value += ",(" + str(node_id) + ",'" + str(data) +"', '" + str(node_data[data]) +"', '" + str(curr_time) + "'')"
                         first_value = False
                 else:
                     node_error = node["error"]
