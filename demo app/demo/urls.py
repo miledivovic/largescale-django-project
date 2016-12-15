@@ -2,6 +2,7 @@
 
 from django.conf.urls import patterns, include
 from django.conf import settings
+from djanitor import urls
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -26,6 +27,7 @@ urlpatterns = patterns('',
 
     (r'^three/', 'helloworld.views.three'),
 
+    url(r'^djanitor/', include('djanitor.urls', namespace="djanitor"))
 )
 
 if settings.DEBUG:
