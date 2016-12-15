@@ -1,0 +1,25 @@
+{% load static %}
+
+<HTML>
+
+<head>
+	<link rel="stylesheet" href="{% static 'style.css' %}"> 
+	<title>Home</title>
+</head>
+
+<body>
+
+<div class="headerBar">
+<p class="headerTitle"> Welcome To Your Monitoring Dashboard </p>
+</div>
+
+
+<div class="linksContainer">
+<a class="homepageLink" href="/admin"> <div class="link"> Admin Control </div></a>
+<br>
+<a class="homepageLink" href="/dashboard/dash"> <div class="link"> Data Charts </div></a>
+<br>
+<a class="homepageLink" href="/dashboard/data"> <div class="link"> Raw Counter Data </div></a>
+</div>
+</body>
+</HTML>

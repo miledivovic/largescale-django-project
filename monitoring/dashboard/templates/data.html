@@ -1,0 +1,16 @@
+{% if latest_counter_list %}
+{
+	
+		{% for counter in latest_counter_list %}
+			{
+				timestamp: {{counter.timestamp}},
+				tag: {{ counter.tag }},
+				count: {{ counter.value }} 
+			},
+		{% endfor %}
+}
+
+{% else %}
+    <p>No counters are available.</p>
+{% endif %}
+
