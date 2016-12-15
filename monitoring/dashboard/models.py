@@ -18,7 +18,7 @@ class Service(models.Model):
 class Node(models.Model):
      node_id = models.AutoField(primary_key=True)
      service = models.ForeignKey(Service, on_delete=models.CASCADE)
-     node_ip = models.CharField(max_length=25)
+     node_ip = models.CharField(max_length=200)
      probing_frequency = models.PositiveIntegerField()
      created = models.DateTimeField('date created')
      owner = models.ForeignKey(User, on_delete=models.CASCADE)
