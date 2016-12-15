@@ -73,7 +73,6 @@ def prober ():
 
             if first_value == False:
                 sql = 'INSERT INTO dashboard_counter (node_id, tag, value, timestamp) VALUES ' + value
-                print (sql)
                 try:
                   # Execute the SQL command
                   cursor.execute(sql)
