@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
 
     # Hello, world!
-    # (r'', 'helloworld.views.index'),
+    (r'', 'demo.views.index'),
 
     (r'^one/', 'demo.views.one'),
 
