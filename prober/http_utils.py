@@ -1,6 +1,5 @@
 import curio
 import curio_http
-# from pprint import pprint
 
 async def fetch_one(node_id, url):
     async with curio_http.ClientSession() as session:
@@ -24,7 +23,6 @@ async def fetch_data (node_list):
 
     for node in node_list:
         url = "http://" + node["node_url"] + ":" + node["node_port"] + node["get_path"] + "monitoring/counters/"
-        # print(url)
         task = await curio.spawn(fetch_one( node["node_id"], url ))
         tasks.append(task)
 

@@ -1,26 +1,22 @@
 #!/usr/bin/env python
 import pymysql
 import config
-import level3
+import http_utils
 import datetime
 from pprint import pprint
 import curio
 
 def prober ():
-    print("I am here")
-    conn= pymysql.connect(host=config.HOST,user=config.USER,passwd=config.PASS,db='monitoring',charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
+    conn= pymysql.connect(host=config.HOST,user=config.USER,passwd=config.PASS,db=config.DB,charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor)
     cursor=conn.cursor()
 
     sql="SELECT node_id, node_ip, probing_frequency, last_probed FROM dashboard_node WHERE active = '1'"
-    print(sql)
     cursor.execute(sql)
     results=cursor.fetchall()
     node_list = []
     curr_time = datetime.datetime.now()
 
-
     for row in results:
-        print(row)
         node = {}
         node_id = row["node_id"]
         node_ip = row["node_ip"]
@@ -38,21 +34,13 @@ def prober ():
         node["node_port"] = "8000"
         node["get_path"] = "/"
         node["timeout"] = "20"
-
         node_list.append(node)
-
-
     try:
         
         if len(node_list) > 0:
-            # pprint(node_list)
-            node_res = curio.run(level3.fetch_data(node_list))
-            # pprint(node_res)
-
+            node_res = curio.run(http_utils.fetch_data(node_list))
             value = ""
             first_value = True
-
-
             for node_id in node_res:
                 node = node_res[node_id]
                 node_status = node["status"]
@@ -70,12 +58,10 @@ def prober ():
                         first_value = False
                 else:
                     node_error = node["error"]
-                    last_error = datetime.datetime.now()
+                    last_error = ""
                 
 
                 sqlTwo = "UPDATE dashboard_node SET last_probed = \'" + str(curr_time) + "\', last_status = '" + str(node_status) + "', last_failure = \'" + str(curr_time) + "\', error_msg = \'" + node_error + "\' WHERE node_id = " + str(node_id)
-
-                print (sqlTwo)
                 try:
                     # Execute the SQL command
                     cursor.execute(sqlTwo)
@@ -83,7 +69,6 @@ def prober ():
                     conn.commit()
                 except:
                     # Rollback in case there is any error
-                    print("I AM FAILING")
                     conn.rollback()
 
             if first_value == False:
@@ -97,7 +82,5 @@ def prober ():
                 except:
                   # Rollback in case there is any error
                   conn.rollback()
-
-
     except Exception as e:
         print(e)

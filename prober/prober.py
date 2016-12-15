@@ -1,8 +1,7 @@
 #!/usr/bin/env python
-import level2
+import database_utils
 from time import sleep
 
 while True:
-    level2.prober()
-    print("level 2 done")
+    database_utils.prober()
     sleep(1)

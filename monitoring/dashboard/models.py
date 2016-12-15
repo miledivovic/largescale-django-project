@@ -26,7 +26,7 @@ class Node(models.Model):
      last_status = models.CharField(max_length=200)
      active = models.BooleanField(default=True)
      error_msg = models.CharField(max_length=200)
-     last_failure = models.DateTimeField('last failed')
+     last_failure = models.DateTimeField(blank=True)
 
      def __unicode__(self):
           return self.node_ip
