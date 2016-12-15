@@ -23,6 +23,7 @@ class Node(models.Model):
      created = models.DateTimeField('date created')
      owner = models.ForeignKey(User, on_delete=models.CASCADE)
      last_probed = models.DateTimeField('last probed')
+     last_status = models.CharField(max_length=200)
      active = models.BooleanField(default=True)
      error_msg = models.CharField(max_length=200)
      last_failure = models.DateTimeField('last failed')
