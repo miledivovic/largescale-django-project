@@ -57,7 +57,7 @@ def prober ():
                 node = node_res[node_id]
                 node_status = node["status"]
                 node_error = ""
-                last_error = ""
+                last_error = "0000-00-00 00:00:00"
 
                 if node_status != -1:
                     node_data = node["data"]
