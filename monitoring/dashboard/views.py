@@ -31,7 +31,7 @@ def counterToJson(counter):
 
 
 def dataToJson(counters):
-    json = '{"data": ['
+    json = '{"HIHI": ['
     for c in counters:
         json += counterToJson(c)
         json += ','

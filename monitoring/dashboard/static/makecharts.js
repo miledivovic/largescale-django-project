@@ -126,7 +126,7 @@ function getTags(){
 
 window.onload= function(){
   // import data
-  mydata = myJSON.data;
+  mydata = myJSON.HIHI;
 
 
   var tags = getTags(mydata)
