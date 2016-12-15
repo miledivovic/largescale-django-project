@@ -17,7 +17,7 @@ class Service(models.Model):
 
 class Node(models.Model):
      node_id = models.AutoField(primary_key=True)
-     service_id = models.ForeignKey(Service, on_delete=models.CASCADE)
+     service = models.ForeignKey(Service, on_delete=models.CASCADE)
      node_ip = models.CharField(max_length=25)
      probing_frequency = models.PositiveIntegerField()
      created = models.DateTimeField('date created')
@@ -33,7 +33,7 @@ class Node(models.Model):
 
 class Counter(models.Model):
      counter_id = models.AutoField(primary_key=True)
-     node_id = models.ForeignKey(Node, on_delete=models.CASCADE)
+     node = models.ForeignKey(Node, on_delete=models.CASCADE)
      timestamp = models.DateTimeField('date probed')
      tag = models.CharField(max_length=200)
      value = models.PositiveIntegerField()
