@@ -163,7 +163,7 @@ function getNextData(myTag) {
 function populateData(tag){
       // CREATE DATASET
       var dataset = new AmCharts.DataSet();
-      dataset.labelText = "TESTING";
+      dataset.title = tag;
       dataset.categoryField = "date";
       dataset.dataProvider = getNextData(tag);
 
