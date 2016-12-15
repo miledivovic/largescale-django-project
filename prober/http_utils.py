@@ -22,7 +22,7 @@ async def fetch_data (node_list):
     node_res = {}
 
     for node in node_list:
-        url = "http://" + node["node_url"] + ":" + node["node_port"] + node["get_path"] + "monitoring/counters/"
+        url = "http://" + node["node_url"] + ":" + node["node_port"] + node["get_path"] + "djanitor/counters/"
         task = await curio.spawn(fetch_one( node["node_id"], url ))
         tasks.append(task)
 
