@@ -4,7 +4,7 @@ How to use the client
 
 Import client into the script(s) that want to increment counters, using the following command:
 ```python
-from monitoring import counter
+from djanitor import counter
 ```
 
 Then just call the following API, with the counter tag that you want to increment:
@@ -20,10 +20,10 @@ Do the following in the main website's urls.py
 
 Import monitoring url, using the following command:
 ```python
-from monitoring import urls	
+from djanitor import urls	
 ```
 
 Then added the following line in urlpatterns list:
 ```python
-url(r'^monitoring/', include('monitoring.urls', namespace="monitoring"))
+url(r'^djanitor/', include('djanitor.urls', namespace="djanitor"))
 ```
