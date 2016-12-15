@@ -124,10 +124,9 @@ function getTags(){
  * GET RANDOM DATA AND ADD TO DASHBOARD
  */
 
-var numberOfDataSets = 5;
 window.onload= function(){
   // import data
-  mydata = myJSON.HIHI;
+  mydata = myJSON.data;
 
 
   var tags = getTags(mydata)
@@ -164,7 +163,7 @@ function getNextData(myTag) {
 function populateData(tag){
       // CREATE DATASET
       var dataset = new AmCharts.DataSet();
-      dataset.title = "Dataset " + ( chart.dataSets.length + 1 );
+      dataset.title = tag;
       dataset.categoryField = "date";
       dataset.dataProvider = getNextData(tag);
 
