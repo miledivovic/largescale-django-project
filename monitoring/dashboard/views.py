@@ -7,13 +7,12 @@ import sys
 import os.path
 from models import Counter
 import time
-from django.db.models import Sum
-from django.http import HttpResponse
+
 
 def counterToJson(counter, subtract):
     json = '{'
 
-    milli = int(time.mktime(str(counter.d+" "+counter.h+":00:00").timetuple())*1000)
+    milli = int(time.mktime(str(counter.timestamp).timetuple())*1000)#d+" "+counter.h+":00:00"
     json += '"date": '
     json += str(milli)
     json += ', '
@@ -25,7 +24,7 @@ def counterToJson(counter, subtract):
     json += ', '
 
     json += '"value": '
-    json += str(counter.v - subtract)
+    json += str(counter.value - subtract)
 
     json += '}'
     return json
@@ -38,7 +37,7 @@ def dataToJson(counters):
         previous_value = 0
         if c.tag in dic:
             previous_value = dic[c.tag]
-            dic[c.tag] = c.v
+            dic[c.tag] = c.value
         json += counterToJson(c, previous_value)
         json += ','
     json = json[:-1]
@@ -55,16 +54,11 @@ def data(request):
 def dash(request):
     #latest_counter_list = Counter.objects.raw("SELECT  date(timestamp) as d , hour(timestamp) as h, tag, SUM(value) as v, max(counter_id) FROM dashboard_counter WHERE counter_id <> 0 GROUP BY date(timestamp),  hour(timestamp), tag ORDER BY date(timestamp), hour(timestamp);")
 
+    latest_counter_list = Counter.objects.raw('SELECT timestamp, counter_id, tag, value FROM dashboard_counter;')
 
-    latest_counter_list = Counter.objects.all().aggregate(Sum('value'))
-    print latest_counter_list
-
-    #exit()
-
-    # json = "{}"
+    json = dataToJson(latest_counter_list)
     #print json
-    # return render(request, 'templates/dashboard.html', {"JSONdata" : json})
-    return HttpResponse("Hello, world two!")
+    return render(request, 'templates/dashboard.html', {"JSONdata" : json})
 
 def index(request):
     return render(request, 'index.html')
