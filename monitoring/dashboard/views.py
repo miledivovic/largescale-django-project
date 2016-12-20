@@ -12,7 +12,7 @@ import time
 def counterToJson(counter, subtract):
     json = '{'
 
-    milli = int(time.mktime(str(counter.timestamp).timetuple())*1000)#d+" "+counter.h+":00:00"
+    milli = int(time.mktime(counter.timestamp.timetuple())*1000)#d+" "+counter.h+":00:00"
     json += '"date": '
     json += str(milli)
     json += ', '
