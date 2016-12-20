@@ -38,7 +38,7 @@ def dataToJson(counters):
         if c.tag in dic:
             print "I AM HERE "
             previous_value = dic[c.tag]
-            dic[c.tag] = c.value
+        dic[c.tag] = c.value
         json += counterToJson(c, previous_value)
         json += ','
     json = json[:-1]
