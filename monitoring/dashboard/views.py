@@ -61,7 +61,7 @@ def dash(request):
 
     #exit()
 
-    #json = dataToJson(latest_counter_list)
+    json = "{}"
     #print json
     return render(request, 'templates/dashboard.html', {"JSONdata" : json})
 
