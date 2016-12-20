@@ -8,7 +8,7 @@ import os.path
 from models import Counter
 import time
 from django.db.models import Sum
-
+from django.http import HttpResponse
 
 def counterToJson(counter, subtract):
     json = '{'
@@ -61,9 +61,10 @@ def dash(request):
 
     #exit()
 
-    json = "{}"
+    # json = "{}"
     #print json
-    return render(request, 'templates/dashboard.html', {"JSONdata" : json})
+    # return render(request, 'templates/dashboard.html', {"JSONdata" : json})
+    return HttpResponse("Hello, world two!")
 
 def index(request):
     return render(request, 'index.html')
