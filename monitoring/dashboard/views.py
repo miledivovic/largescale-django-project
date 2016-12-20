@@ -52,7 +52,7 @@ def data(request):
 
 @login_required
 def dash(request):
-    latest_counter_list = Counter.objects.raw("SELECT date(timestamp) as d , hour(timestamp) as h, tag, SUM(value) as v, max(counter_id) FROM dashboard_counter  GROUP BY date(timestamp),  hour(timestamp), tag ORDER BY date(timestamp), hour(timestamp);")
+    latest_counter_list = Counter.objects.raw("SELECT date(timestamp) as d , hour(timestamp) as h, tag, SUM(value) as v, max(counter_id) FROM dashboard_counter WHERE counter_id <> 0 GROUP BY date(timestamp),  hour(timestamp), tag ORDER BY date(timestamp), hour(timestamp);")
     json = dataToJson(latest_counter_list)
     #print json
     return render(request, 'templates/dashboard.html', {"JSONdata" : json})
