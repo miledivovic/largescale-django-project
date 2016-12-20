@@ -52,7 +52,7 @@ def data(request):
 
 @login_required
 def dash(request):
-    latest_counter_list = Counter.objects.raw("select CONCAT(d,' ',h,':00:00') as timestamp, tag, sum_value as value from (SELECT date(timestamp) as d , hour(timestamp) as h , counter_id, tag, SUM(value) as sum_value FROM dashboard_counter GROUP BY date(timestamp),  hour(timestamp), tag) aa ORDER BY timestamp;")
+    latest_counter_list = Counter.objects.raw("select CONCAT(d,' ',h,':00:00') as timestamp, tag, sum_value as value from ( SELECT date(timestamp) as d , hour(timestamp) as h , tag, SUM(value) as sum_value FROM dashboard_counter GROUP BY date(timestamp),  hour(timestamp), tag ) aa ORDER BY timestamp;")
     json = dataToJson(latest_counter_list)
     #print json
     return render(request, 'templates/dashboard.html', {"JSONdata" : json})
