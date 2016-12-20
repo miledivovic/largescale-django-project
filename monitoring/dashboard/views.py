@@ -9,7 +9,7 @@ from models import Counter
 import time
 
 
-def counterToJson(counter):
+def counterToJson(counter, subtract):
     json = '{'
 
     milli = int(time.mktime(counter.timestamp.timetuple())*1000)
@@ -24,7 +24,7 @@ def counterToJson(counter):
     json += ', '
 
     json += '"value": '
-    json += str(counter.value)
+    json += str(counter.value - subtract)
 
     json += '}'
     return json
@@ -32,8 +32,13 @@ def counterToJson(counter):
 
 def dataToJson(counters):
     json = '{"HIHI": ['
+    dic = {}
     for c in counters:
-        json += counterToJson(c)
+        previous_value = 0
+        if c.tag in dic:
+            previous_value = dic[c.tag]
+            dic[c.tag] = c.value
+        json += counterToJson(c, previous_value)
         json += ','
     json = json[:-1]
     json += ']}'
@@ -47,13 +52,10 @@ def data(request):
 
 @login_required
 def dash(request):
-    latest_counter_list = Counter.objects.raw('SELECT timestamp, counter_id, tag, value FROM dashboard_counter order by timestamp asc;')
+    latest_counter_list = Counter.objects.raw("select CONCAT(d,' ',h,':00:00') as timestamp, tag, sum_value as value from (SELECT date(timestamp) as d , hour(timestamp) as h ,  tag, SUM(value) as sum_value FROM dashboard_counter GROUP BY date(timestamp),  hour(timestamp), tag) aa ORDER BY dh;")
     json = dataToJson(latest_counter_list)
     #print json
     return render(request, 'templates/dashboard.html', {"JSONdata" : json})
 
-
 def index(request):
     return render(request, 'index.html')
-
-
