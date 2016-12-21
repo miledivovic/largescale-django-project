@@ -23,7 +23,7 @@ async def fetch_data (node_list):
 
     for node in node_list:
         url = node["node_counter_data_endpoint"]
-        print(url)
+        # print(url)
         task = await curio.spawn(fetch_one( node["node_id"], url ))
         tasks.append(task)
 

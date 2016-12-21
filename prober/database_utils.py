@@ -17,7 +17,7 @@ def prober ():
     curr_time = datetime.datetime.now()
 
     for row in results:
-        print(row)
+        # print(row)
         node = {}
         node_id = row["node_id"]
         node_ip = row["node_ip"]
@@ -41,7 +41,7 @@ def prober ():
         
         if len(node_list) > 0:
             node_res = curio.run(http_utils.fetch_data(node_list))
-            print(node_res)
+            # print(node_res)
             value = ""
             first_value = True
             for node_id in node_res:
@@ -65,7 +65,7 @@ def prober ():
                 
 
                 sqlTwo = "UPDATE dashboard_node SET last_probed = \'" + str(curr_time) + "\', last_status = '" + str(node_status) + "', last_failure = \'" + str(curr_time) + "\', error_msg = \'" + node_error + "\' WHERE node_id = " + str(node_id)
-                print(sqlTwo)
+                # print(sqlTwo)
                 try:
                     # Execute the SQL command
                     cursor.execute(sqlTwo)
@@ -79,7 +79,7 @@ def prober ():
 
             if first_value == False:
                 sql = 'INSERT INTO dashboard_counter (node_id, tag, value, timestamp) VALUES ' + value
-                print(sql)
+                # print(sql)
                 try:
                   # Execute the SQL command
                   cursor.execute(sql)
