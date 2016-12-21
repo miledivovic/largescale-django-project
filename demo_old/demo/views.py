@@ -1,15 +1,20 @@
+# -*- coding: utf-8 -*-
 from django.http import HttpResponse
 from djanitor import counter
 
+def index(request):
+	djanitor.increment("index")
+    return HttpResponse("Hello, world!")
+
+
 def one(request):
-    counter.increment("one")
+	djanitor.increment("one")
     return HttpResponse("Hello, world one!")
 
 def two(request):
-    counter.increment("two")
+	djanitor.increment("two")
     return HttpResponse("Hello, world two!")
 
 def three(request):
-    counter.increment("three")
-    counter.increment("2nd three")
+	djanitor.increment("three")
     return HttpResponse("Hello, world three!")

@@ -1,38 +1,25 @@
-# -*- coding: utf-8 -*-
+"""demo URL Configuration
 
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.9/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Import the include() function: from django.conf.urls import url, include
+    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
+"""
 from django.conf.urls import patterns, include, url
-from django.conf import settings
-from djanitor import urls
-
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
-admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Example:
-    # (r'^helloworld/', include('helloworld.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    (r'^admin/', include(admin.site.urls)),
-
-    # Hello, world!
-    (r'', 'demo.views.index'),
-
-    (r'^one/', 'demo.views.one'),
-
-    (r'^two/', 'demo.views.two'),
-
-    (r'^three/', 'demo.views.three'),
-
+urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^one/', 'demo.views.one'),
+    url(r'^two/', 'demo.views.two'),
+    url(r'^three/', 'demo.views.three'),
     url(r'^djanitor/', include('djanitor.urls', namespace="djanitor"))
-)
-
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        (r'^media/(?P<path>.*)$', 'django.views.static.serve',
-         {'document_root': settings.MEDIA_ROOT}),
-    )
-
+]
